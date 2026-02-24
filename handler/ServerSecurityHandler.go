@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/binary"
 	"fmt"
+	"github.com/lizazacn/vncproxy/rfb"
 	"github.com/osgochina/dmicro/logger"
-	"github.com/vprix/vncproxy/rfb"
 )
 
 // ServerSecurityHandler vnc握手步骤第二步

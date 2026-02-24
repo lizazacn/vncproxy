@@ -3,11 +3,12 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/vprix/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // SetColorMapEntries 设置颜色表的内容
-//  See RFC 6143 Section 7.6.2
+//
+//	See RFC 6143 Section 7.6.2
 type SetColorMapEntries struct {
 	_          [1]byte //填充
 	FirstColor uint16  // 颜色的起始位置，

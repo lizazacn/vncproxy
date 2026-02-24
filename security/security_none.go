@@ -1,6 +1,6 @@
 package security
 
-import "github.com/vprix/vncproxy/rfb"
+import "github.com/lizazacn/vncproxy/rfb"
 
 // ClientAuthNone vnc客户端认证
 type ClientAuthNone struct{}

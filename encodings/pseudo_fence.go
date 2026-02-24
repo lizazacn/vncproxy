@@ -1,7 +1,7 @@
 package encodings
 
 import (
-	"github.com/vprix/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 type FencePseudo struct {

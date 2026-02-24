@@ -1,4 +1,4 @@
-module github.com/vprix/vncproxy
+module github.com/lizazacn/vncproxy
 
 require (
 	github.com/gogf/gf/v2 v2.3.2

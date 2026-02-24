@@ -2,10 +2,10 @@ package session
 
 import (
 	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/vprix/vncproxy/canvas"
-	"github.com/vprix/vncproxy/encodings"
-	"github.com/vprix/vncproxy/messages"
-	"github.com/vprix/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/canvas"
+	"github.com/lizazacn/vncproxy/encodings"
+	"github.com/lizazacn/vncproxy/messages"
+	"github.com/lizazacn/vncproxy/rfb"
 	"io"
 )
 
