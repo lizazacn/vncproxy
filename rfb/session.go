@@ -1,7 +1,6 @@
 package rfb
 
 import (
-	"github.com/gogf/gf/v2/container/gmap"
 	"io"
 )
 
@@ -26,7 +25,7 @@ type ISession interface {
 	Encodings() []IEncoding              // 获取该会话支持的图像编码类型
 	SetEncodings([]EncodingType) error   // 设置该链接支持的图像编码类型
 	NewEncoding(EncodingType) IEncoding
-	Swap() *gmap.Map // 获取会话的自定义存储数据
+	Swap() map[any]any // 获取会话的自定义存储数据
 	Type() SessionType
 }
 

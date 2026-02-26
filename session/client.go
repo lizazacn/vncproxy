@@ -2,15 +2,13 @@ package session
 
 import (
 	"bufio"
-	"context"
 	"fmt"
-	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/lizazacn/vncproxy/encodings"
 	"github.com/lizazacn/vncproxy/handler"
 	"github.com/lizazacn/vncproxy/messages"
 	"github.com/lizazacn/vncproxy/rfb"
-	"github.com/osgochina/dmicro/logger"
 	"io"
+	"log/slog"
 )
 
 var (
@@ -38,7 +36,7 @@ type ClientSession struct {
 	securityHandler rfb.ISecurityHandler
 
 	//交换区
-	swap *gmap.Map
+	swap map[any]any
 }
 
 var _ rfb.ISession = new(ClientSession)
@@ -46,7 +44,7 @@ var _ rfb.ISession = new(ClientSession)
 // NewClient 创建客户端会话
 func NewClient(opts ...rfb.Option) *ClientSession {
 	sess := &ClientSession{
-		swap: gmap.New(true),
+		swap: make(map[any]any),
 	}
 	sess.configure(opts...)
 
@@ -146,9 +144,7 @@ func (that *ClientSession) SetEncodings(encs []rfb.EncodingType) error {
 		EncNum:    uint16(len(encs)),
 		Encodings: encs,
 	}
-	if logger.IsDebug() {
-		logger.Debugf(context.TODO(), "[Proxy客户端->VNC服务端] 消息类型:%s,消息内容:%s", rfb.ClientMessageType(msg.Type()), msg.String())
-	}
+	slog.Debug("[Proxy客户端->VNC服务端]", "消息类型", rfb.ClientMessageType(msg.Type()), "消息内容", msg.String())
 	return msg.Write(that)
 }
 
@@ -200,7 +196,7 @@ func (that *ClientSession) Close() error {
 }
 
 // Swap session存储的临时变量
-func (that *ClientSession) Swap() *gmap.Map {
+func (that *ClientSession) Swap() map[any]any {
 	return that.swap
 }
 

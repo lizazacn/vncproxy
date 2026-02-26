@@ -1,17 +1,14 @@
 package vnc
 
 import (
-	"context"
 	"encoding/binary"
 	"fmt"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/lizazacn/vncproxy/handler"
 	"github.com/lizazacn/vncproxy/messages"
 	"github.com/lizazacn/vncproxy/rfb"
 	"github.com/lizazacn/vncproxy/session"
-	"github.com/osgochina/dmicro/logger"
 	"io"
+	"log/slog"
 	"os"
 	"sync"
 	"time"
@@ -21,17 +18,17 @@ type Player struct {
 	svrSession    *session.ServerSession // vnc客户端连接到proxy的会话
 	playerSession *session.PlayerSession
 	errorCh       chan error
-	closed        *gtype.Bool
+	closed        bool
 	syncOnce      sync.Once
 }
 
 func NewPlayer(filePath string, svrSession *session.ServerSession) *Player {
 	playerSession := session.NewPlayerSession(
 		rfb.OptGetConn(func(sess rfb.ISession) (io.ReadWriteCloser, error) {
-			if !gfile.Exists(filePath) {
+			if !FileExists(filePath) {
 				return nil, fmt.Errorf("要读取的文件[%s]不存在", filePath)
 			}
-			return gfile.OpenFile(filePath, os.O_RDONLY, 0644)
+			return os.OpenFile(filePath, os.O_RDONLY, 0644)
 		}),
 	)
 
@@ -39,7 +36,7 @@ func NewPlayer(filePath string, svrSession *session.ServerSession) *Player {
 		errorCh:       make(chan error, 32),
 		svrSession:    svrSession,
 		playerSession: playerSession,
-		closed:        gtype.NewBool(false),
+		closed:        false,
 	}
 }
 
@@ -77,7 +74,7 @@ func (that *Player) Handle(sess rfb.ISession) error {
 }
 
 func (that *Player) handleIO() {
-	for that.closed.Val() == false {
+	for that.closed == false {
 		select {
 		case <-that.svrSession.Wait():
 			return
@@ -90,9 +87,7 @@ func (that *Player) handleIO() {
 			that.errorCh <- err
 			that.Close()
 		case msg := <-that.svrSession.Options().Output:
-			if logger.IsDebug() {
-				logger.Debugf(context.TODO(), "收到vnc客户端发送过来的消息,%s", msg)
-			}
+			slog.Debug("收到vnc客户端发送过来的消息", "msg", msg)
 			if msg.Type() == rfb.MessageType(rfb.FramebufferUpdateRequest) {
 				that.syncOnce.Do(func() {
 					go that.readRbs()
@@ -103,7 +98,7 @@ func (that *Player) handleIO() {
 }
 
 func (that *Player) readRbs() {
-	for that.closed.Val() == false {
+	for that.closed == false {
 		// 从会话中读取消息类型
 		var messageType rfb.ServerMessageType
 		if err := binary.Read(that.playerSession, binary.BigEndian, &messageType); err != nil {
@@ -127,7 +122,15 @@ func (that *Player) readRbs() {
 }
 
 func (that *Player) Close() {
-	that.closed.Set(true)
+	that.closed = true
 	_ = that.svrSession.Close()
 	_ = that.playerSession.Close()
+}
+
+func FileExists(path string) bool {
+	// Exists checks whether given `path` exist.
+	if stat, err := os.Stat(path); stat != nil && !os.IsNotExist(err) {
+		return true
+	}
+	return false
 }

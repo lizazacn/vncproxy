@@ -3,8 +3,8 @@ package encodings
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 	"fmt"
-	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/lizazacn/vncproxy/canvas"
 	"github.com/lizazacn/vncproxy/rfb"
 	"image"
@@ -89,14 +89,14 @@ func (that *HexTileEncoding) Read(session rfb.ISession, rect *rfb.Rectangle) err
 			// 读取标志位
 			subEncoding, err := ReadUint8(session)
 			if err != nil {
-				return gerror.Newf("HextileEncoding.Read: error in hextile reader: %v", err)
+				return errors.New(fmt.Sprintf("HextileEncoding.Read: error in hextile reader: %v", err))
 			}
 			_ = binary.Write(that.buff, session.Options().PixelFormat.Order(), subEncoding)
 			// 如果是原始编码
 			if (subEncoding & HexTileRaw) != 0 {
 				bt, err = ReadBytes(tw*th*bytesPerPixel, session)
 				if err != nil {
-					return gerror.Newf("HextileEncoding.Read: error in hextile reader: %v", err)
+					return errors.New(fmt.Sprintf("HextileEncoding.Read: error in hextile reader: %v", err))
 				}
 				_, _ = that.buff.Write(bt)
 				continue
@@ -106,7 +106,7 @@ func (that *HexTileEncoding) Read(session rfb.ISession, rect *rfb.Rectangle) err
 			if (subEncoding & HexTileBackgroundSpecified) != 0 {
 				bt, err = ReadBytes(bytesPerPixel, session)
 				if err != nil {
-					return gerror.Newf("HextileEncoding.Read: error in hextile reader: %v", err)
+					return errors.New(fmt.Sprintf("HextileEncoding.Read: error in hextile reader: %v", err))
 				}
 				_, _ = that.buff.Write(bt)
 			}
@@ -115,7 +115,7 @@ func (that *HexTileEncoding) Read(session rfb.ISession, rect *rfb.Rectangle) err
 			if (subEncoding & HexTileForegroundSpecified) != 0 {
 				bt, err = ReadBytes(bytesPerPixel, session)
 				if err != nil {
-					return gerror.Newf("HextileEncoding.Read: error in hextile reader: %v", err)
+					return errors.New(fmt.Sprintf("HextileEncoding.Read: error in hextile reader: %v", err))
 				}
 				_, _ = that.buff.Write(bt)
 			}
@@ -124,7 +124,7 @@ func (that *HexTileEncoding) Read(session rfb.ISession, rect *rfb.Rectangle) err
 			if (subEncoding & HexTileAnySubRects) != 0 {
 				nSubRects, err := ReadUint8(session)
 				if err != nil {
-					return gerror.Newf("HextileEncoding.Read: error in hextile reader: %v", err)
+					return errors.New(fmt.Sprintf("HextileEncoding.Read: error in hextile reader: %v", err))
 				}
 				_ = binary.Write(that.buff, session.Options().PixelFormat.Order(), nSubRects)
 
@@ -132,19 +132,19 @@ func (that *HexTileEncoding) Read(session rfb.ISession, rect *rfb.Rectangle) err
 					if (subEncoding & HexTileSubRectsColoured) != 0 {
 						bt, err = ReadBytes(bytesPerPixel, session)
 						if err != nil {
-							return gerror.Newf("HextileEncoding.Read: error in hextile reader: %v", err)
+							return errors.New(fmt.Sprintf("HextileEncoding.Read: error in hextile reader: %v", err))
 						}
 						_, _ = that.buff.Write(bt)
 					}
 					xy, err := ReadUint8(session)
 					if err != nil {
-						return gerror.Newf("HextileEncoding.Read: error in hextile reader: %v", err)
+						return errors.New(fmt.Sprintf("HextileEncoding.Read: error in hextile reader: %v", err))
 					}
 					_ = binary.Write(that.buff, session.Options().PixelFormat.Order(), xy)
 
 					wh, err := ReadUint8(session)
 					if err != nil {
-						return gerror.Newf("HextileEncoding.Read: error in hextile reader: %v", err)
+						return errors.New(fmt.Sprintf("HextileEncoding.Read: error in hextile reader: %v", err))
 					}
 					_ = binary.Write(that.buff, session.Options().PixelFormat.Order(), wh)
 				}

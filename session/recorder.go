@@ -3,7 +3,6 @@ package session
 import (
 	"bufio"
 	"encoding/binary"
-	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/lizazacn/vncproxy/encodings"
 	"github.com/lizazacn/vncproxy/messages"
 	"github.com/lizazacn/vncproxy/rfb"
@@ -19,7 +18,7 @@ type RecorderSession struct {
 	options  rfb.Options // 客户端配置信息
 	protocol string      //协议版本
 
-	swap *gmap.Map
+	swap map[any]any
 }
 
 var _ rfb.ISession = new(RecorderSession)
@@ -27,7 +26,7 @@ var _ rfb.ISession = new(RecorderSession)
 // NewRecorder 创建客户端会话
 func NewRecorder(opts ...rfb.Option) *RecorderSession {
 	recorder := &RecorderSession{
-		swap: gmap.New(true),
+		swap: make(map[any]any),
 	}
 	recorder.configure(opts...)
 	return recorder
@@ -203,7 +202,7 @@ func (that *RecorderSession) Close() error {
 }
 
 // Swap session存储的临时变量
-func (that *RecorderSession) Swap() *gmap.Map {
+func (that *RecorderSession) Swap() map[any]any {
 	return that.swap
 }
 

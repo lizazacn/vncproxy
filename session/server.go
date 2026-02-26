@@ -2,7 +2,6 @@ package session
 
 import (
 	"bufio"
-	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/lizazacn/vncproxy/encodings"
 	"github.com/lizazacn/vncproxy/handler"
 	"github.com/lizazacn/vncproxy/messages"
@@ -30,14 +29,14 @@ type ServerSession struct {
 	encodings       []rfb.IEncoding      // 支持的编码列
 	securityHandler rfb.ISecurityHandler // 安全认证方式
 
-	swap *gmap.Map
+	swap map[any]any
 }
 
 var _ rfb.ISession = new(ServerSession)
 
 func NewServerSession(opts ...rfb.Option) *ServerSession {
 	sess := &ServerSession{
-		swap: gmap.New(true),
+		swap: make(map[any]any),
 	}
 	sess.configure(opts...)
 
@@ -186,7 +185,7 @@ func (that *ServerSession) Close() error {
 }
 
 // Swap session存储的临时变量
-func (that *ServerSession) Swap() *gmap.Map {
+func (that *ServerSession) Swap() map[any]any {
 	return that.swap
 }
 

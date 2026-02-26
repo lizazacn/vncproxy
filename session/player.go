@@ -3,7 +3,6 @@ package session
 import (
 	"bufio"
 	"encoding/binary"
-	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/lizazacn/vncproxy/encodings"
 	"github.com/lizazacn/vncproxy/messages"
 	"github.com/lizazacn/vncproxy/rfb"
@@ -19,12 +18,12 @@ type PlayerSession struct {
 	protocol        string               //协议版本
 	securityHandler rfb.ISecurityHandler // 安全认证方式
 
-	swap *gmap.Map
+	swap map[any]any
 }
 
 func NewPlayerSession(opts ...rfb.Option) *PlayerSession {
 	sess := &PlayerSession{
-		swap: gmap.New(true),
+		swap: make(map[any]any),
 	}
 	sess.configure(opts...)
 	return sess
@@ -209,7 +208,7 @@ func (that *PlayerSession) Close() error {
 	return that.c.Close()
 }
 
-func (that *PlayerSession) Swap() *gmap.Map {
+func (that *PlayerSession) Swap() map[any]any {
 	return that.swap
 }
 func (that *PlayerSession) Type() rfb.SessionType {

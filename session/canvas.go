@@ -1,7 +1,6 @@
 package session
 
 import (
-	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/lizazacn/vncproxy/canvas"
 	"github.com/lizazacn/vncproxy/encodings"
 	"github.com/lizazacn/vncproxy/messages"
@@ -15,13 +14,13 @@ type CanvasSession struct {
 	options   rfb.Options     // 客户端配置信息
 	protocol  string          //协议版本
 	encodings []rfb.IEncoding // 支持的编码列
-	swap      *gmap.Map
+	swap      map[any]any
 }
 
 // NewCanvasSession 创建客户端会话
 func NewCanvasSession(opts ...rfb.Option) *CanvasSession {
 	sess := &CanvasSession{
-		swap: gmap.New(true),
+		swap: make(map[interface{}]interface{}),
 	}
 	sess.configure(opts...)
 	return sess
@@ -154,7 +153,7 @@ func (that *CanvasSession) Close() error {
 }
 
 // Swap session存储的临时变量
-func (that *CanvasSession) Swap() *gmap.Map {
+func (that *CanvasSession) Swap() map[any]any {
 	return that.swap
 }
 

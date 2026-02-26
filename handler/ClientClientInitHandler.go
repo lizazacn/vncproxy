@@ -1,10 +1,9 @@
 package handler
 
 import (
-	"context"
 	"encoding/binary"
 	"github.com/lizazacn/vncproxy/rfb"
-	"github.com/osgochina/dmicro/logger"
+	"log/slog"
 )
 
 // ClientClientInitHandler vnc握手步骤第三步
@@ -13,9 +12,7 @@ import (
 type ClientClientInitHandler struct{}
 
 func (that *ClientClientInitHandler) Handle(session rfb.ISession) error {
-	if logger.IsDebug() {
-		logger.Debug(context.TODO(), "[Proxy客户端->VNC服务端]: 执行vnc握手步骤第三步[ClientInit]")
-	}
+	slog.Debug("[Proxy客户端->VNC服务端]: 执行vnc握手步骤第三步[ClientInit]")
 	cfg := session.Options()
 	var shared uint8
 	if cfg.Exclusive {
@@ -26,8 +23,6 @@ func (that *ClientClientInitHandler) Handle(session rfb.ISession) error {
 	if err := binary.Write(session, binary.BigEndian, shared); err != nil {
 		return err
 	}
-	if logger.IsDebug() {
-		logger.Debugf(context.TODO(), "[Proxy客户端->VNC服务端]: 执行ClientInit步骤，发送shared=%d", shared)
-	}
+	slog.Debug("[Proxy客户端->VNC服务端]: 执行ClientInit步骤", "发送shared", shared)
 	return session.Flush()
 }

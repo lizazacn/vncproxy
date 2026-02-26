@@ -3,8 +3,8 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/lizazacn/vncproxy/rfb"
+	"strings"
 )
 
 // SetEncodings 设置编码类型消息
@@ -32,7 +32,7 @@ func (that *SetEncodings) String() string {
 	for _, e := range that.Encodings {
 		s1 = append(s1, fmt.Sprintf("%s", e))
 	}
-	return s + gstr.Implode(",", s1)
+	return s + strings.Join(s1, ", ")
 }
 
 // Type returns MessageType

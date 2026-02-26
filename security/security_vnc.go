@@ -5,8 +5,8 @@ import (
 	"crypto/des"
 	"encoding/binary"
 	"fmt"
-	"github.com/gogf/gf/v2/util/grand"
 	"github.com/lizazacn/vncproxy/rfb"
+	"math/rand/v2"
 )
 
 // ChallengeLen 随机认证串的长度
@@ -49,7 +49,10 @@ func (that *ServerAuthVNC) ReadChallenge(session rfb.ISession) error {
 func (that *ServerAuthVNC) Auth(session rfb.ISession) error {
 
 	if len(that.Challenge) != ChallengeLen {
-		that.Challenge = grand.B(ChallengeLen)
+		that.Challenge = make([]byte, ChallengeLen)
+		for idx := 0; idx < ChallengeLen; idx++ {
+			that.Challenge[idx] = byte(rand.IntN(128))
+		}
 	}
 
 	if err := that.writeChallenge(session); err != nil {

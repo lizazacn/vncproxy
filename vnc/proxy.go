@@ -1,8 +1,6 @@
 package vnc
 
 import (
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/lizazacn/vncproxy/handler"
 	"github.com/lizazacn/vncproxy/messages"
 	"github.com/lizazacn/vncproxy/rfb"
@@ -13,7 +11,7 @@ type Proxy struct {
 	remoteSession rfb.ISession // 链接到vnc远端服务的会话
 	svrSession    rfb.ISession // vnc客户端连接到proxy的会话
 	errorCh       chan error
-	closed        *gtype.Bool
+	closed        bool
 }
 
 // NewVncProxy 生成vnc proxy服务对象
@@ -23,7 +21,7 @@ func NewVncProxy(remoteSession *session.ClientSession, serverSession *session.Se
 		remoteSession: remoteSession,
 		// 这里选择8是随便选的,后期应该会改
 		errorCh: make(chan error, 8),
-		closed:  gtype.NewBool(false),
+		closed:  false,
 	}
 	return vncProxy
 }
@@ -51,7 +49,7 @@ func (that *Proxy) Start() error {
 }
 
 func (that *Proxy) handleIO() {
-	for that.closed.Val() == false {
+	for that.closed == false {
 		select {
 		case msg := <-that.remoteSession.Options().ErrorCh:
 			// 如果链接到vnc服务端的会话报错，则需要把链接到proxy的vnc客户端全部关闭
@@ -96,7 +94,7 @@ func (that *Proxy) handleIO() {
 					}
 				}
 				// 发送编码消息给vnc服务端
-				that.remoteSession.Options().Input <- &messages.SetEncodings{EncNum: gconv.Uint16(len(encTypes)), Encodings: encTypes}
+				that.remoteSession.Options().Input <- &messages.SetEncodings{EncNum: uint16(len(encTypes)), Encodings: encTypes}
 			default:
 				cliCfg := that.remoteSession.Options()
 				disabled := false
@@ -137,7 +135,7 @@ func (that *Proxy) Handle(sess rfb.ISession) (err error) {
 }
 
 func (that *Proxy) Close() {
-	that.closed.Set(true)
+	that.closed = true
 	_ = that.svrSession.Close()
 	_ = that.remoteSession.Close()
 }

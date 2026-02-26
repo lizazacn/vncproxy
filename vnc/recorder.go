@@ -1,19 +1,17 @@
 package vnc
 
 import (
-	"context"
 	"encoding/binary"
-	"github.com/gogf/gf/v2/container/gtype"
-	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/lizazacn/vncproxy/messages"
 	"github.com/lizazacn/vncproxy/rfb"
 	"github.com/lizazacn/vncproxy/session"
-	"github.com/osgochina/dmicro/logger"
+	"log/slog"
+	"time"
 )
 
 type Recorder struct {
 	errorCh         chan error
-	closed          *gtype.Bool
+	closed          bool
 	cliSession      *session.ClientSession // 链接到vnc服务端的会话
 	recorderSession *session.RecorderSession
 }
@@ -23,7 +21,7 @@ func NewRecorder(recorderSess *session.RecorderSession, cliSession *session.Clie
 		recorderSession: recorderSess,
 		cliSession:      cliSession,
 		errorCh:         make(chan error, 32),
-		closed:          gtype.NewBool(false),
+		closed:          false,
 	}
 	return recorder
 }
@@ -56,11 +54,11 @@ func (that *Recorder) Start() error {
 	if err != nil {
 		return err
 	}
-	var lastUpdate *gtime.Time
+	var lastUpdate *time.Time
 	for {
 		select {
 		case msg := <-that.recorderSession.Options().Output:
-			logger.Debugf(context.TODO(), "client message received.messageType:%d,message:%s", msg.Type(), msg)
+			slog.Debug("client message ", "received.msgType", msg.Type(), ",msg", msg)
 		case msg := <-that.cliSession.Options().Output:
 			if rfb.ServerMessageType(msg.Type()) == rfb.FramebufferUpdate {
 				err = msg.Write(that.recorderSession)
@@ -70,14 +68,15 @@ func (that *Recorder) Start() error {
 				if lastUpdate == nil {
 					_ = binary.Write(that.recorderSession, binary.BigEndian, int64(0))
 				} else {
-					secsPassed := gtime.Now().UnixNano() - lastUpdate.UnixNano()
+					secsPassed := time.Now().UnixNano() - lastUpdate.UnixNano()
 					_ = binary.Write(that.recorderSession, binary.BigEndian, secsPassed)
 				}
 				err = that.recorderSession.Flush()
 				if err != nil {
 					return err
 				}
-				lastUpdate = gtime.Now()
+				t := time.Now()
+				lastUpdate = &t
 				reqMsg = messages.FramebufferUpdateRequest{Inc: 1, X: 0, Y: 0, Width: that.cliSession.Options().Width, Height: that.cliSession.Options().Height}
 				err = reqMsg.Write(that.cliSession)
 				if err != nil {
@@ -101,7 +100,7 @@ func (that *Recorder) Start() error {
 }
 
 func (that *Recorder) Close() {
-	that.closed.Set(true)
+	that.closed = true
 	_ = that.cliSession.Close()
 	_ = that.recorderSession.Close()
 }

@@ -4,8 +4,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/lizazacn/vncproxy/rfb"
-	"github.com/osgochina/dmicro/logger"
-	"golang.org/x/net/context"
+	"log/slog"
 )
 
 // FramebufferUpdate 帧缓冲更新
@@ -37,33 +36,25 @@ func (that *FramebufferUpdate) Read(session rfb.ISession) (rfb.Message, error) {
 	if err := binary.Read(session, binary.BigEndian, &msg.NumRect); err != nil {
 		return nil, err
 	}
-	if logger.IsDebug() {
-		logger.Debugf(context.TODO(), "FramebufferUpdate->读取帧数据有 %d 个矩形-------", msg.NumRect)
-	}
+	slog.Debug(fmt.Sprintf("FramebufferUpdate->读取帧数据有 %d 个矩形-------", msg.NumRect))
 
 	for i := uint16(0); i < msg.NumRect; i++ {
 		rect := rfb.NewRectangle()
-		if logger.IsDebug() {
-			logger.Debugf(context.TODO(), "开始读取第 %d 个矩形", i)
-		}
+		slog.Debug(fmt.Sprintf("开始读取第 %d 个矩形", i))
 
 		if err := rect.Read(session); err != nil {
 			return nil, err
 		}
 		// 如果服务器告诉客户端这是最后一个rect，则停止解析
 		if rect.EncType == rfb.EncLastRectPseudo {
-			if logger.IsDebug() {
-				logger.Debugf(context.TODO(), "读取第 %d 个矩形成功，但是是最后一帧:EncLastRectPseudo", i)
-			}
+			slog.Debug(fmt.Sprintf("读取第 %d 个矩形成功，但是是最后一帧:EncLastRectPseudo", i))
 			msg.Rects = append(msg.Rects, rect)
 			break
 		}
 		//if rect.EncType == rfb.EncDesktopSizePseudo {
 		//	session.ResetAllEncodings()
 		//}
-		if logger.IsDebug() {
-			logger.Debugf(context.TODO(), "结束读取第 %d 个矩形,宽高:(%dx%d) 编码格式:%s", i, rect.Width, rect.Height, rect.EncType)
-		}
+		slog.Debug(fmt.Sprintf("结束读取第 %d 个矩形,宽高:(%dx%d) 编码格式:%s", i, rect.Width, rect.Height, rect.EncType))
 		msg.Rects = append(msg.Rects, rect)
 	}
 	return msg, nil

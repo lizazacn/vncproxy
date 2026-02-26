@@ -1,14 +1,13 @@
 package vnc
 
 import (
-	"context"
 	"github.com/lizazacn/vncproxy/encodings"
 	"github.com/lizazacn/vncproxy/messages"
 	"github.com/lizazacn/vncproxy/rfb"
 	"github.com/lizazacn/vncproxy/security"
 	"github.com/lizazacn/vncproxy/session"
-	"github.com/osgochina/dmicro/logger"
 	"io"
+	"log/slog"
 	"net"
 	"time"
 )
@@ -102,7 +101,7 @@ func (that *Video) Start() error {
 	for {
 		select {
 		case msg := <-that.cliCfg.Output:
-			logger.Debugf(context.TODO(), "client message received.messageType:%d,message:%s", msg.Type(), msg)
+			slog.Debug("client message", "received.msgType", msg.Type(), "msg", msg.String())
 		case msg := <-that.cliCfg.Input:
 			if rfb.ServerMessageType(msg.Type()) == rfb.FramebufferUpdate {
 				err = msg.Write(that.canvasSession)

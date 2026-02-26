@@ -6,9 +6,9 @@ import (
 	"github.com/lizazacn/vncproxy/rfb"
 	"github.com/lizazacn/vncproxy/security"
 	"github.com/lizazacn/vncproxy/session"
-	"github.com/osgochina/dmicro/logger"
 	"golang.org/x/net/context"
 	"io"
+	"log/slog"
 	"net"
 	"time"
 )
@@ -90,9 +90,7 @@ func (that *Screenshot) GetImage() (io.ReadWriteCloser, error) {
 				err = that.canvasSession.Flush()
 				return that.canvasSession.Conn(), err
 			}
-			if logger.IsDebug() {
-				logger.Debugf(context.TODO(), "获取到来自vnc服务端的消息%v", msg)
-			}
+			slog.Debug("获取到来自vnc服务端的消息", "msg", msg.String())
 		}
 	}
 }

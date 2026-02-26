@@ -1,11 +1,10 @@
 package handler
 
 import (
-	"context"
 	"encoding/binary"
 	"github.com/lizazacn/vncproxy/messages"
 	"github.com/lizazacn/vncproxy/rfb"
-	"github.com/osgochina/dmicro/logger"
+	"log/slog"
 )
 
 // ClientServerInitHandler vnc握手第四步
@@ -13,9 +12,7 @@ import (
 type ClientServerInitHandler struct{}
 
 func (*ClientServerInitHandler) Handle(session rfb.ISession) error {
-	if logger.IsDebug() {
-		logger.Debugf(context.TODO(), "[Proxy客户端->VNC服务端]: 执行vnc握手第四步:[ServerInit]")
-	}
+	slog.Debug("[Proxy客户端->VNC服务端]: 执行vnc握手第四步:[ServerInit]")
 	var err error
 	srvInit := messages.ServerInit{}
 
@@ -36,9 +33,8 @@ func (*ClientServerInitHandler) Handle(session rfb.ISession) error {
 	if err = binary.Read(session, binary.BigEndian, &srvInit.NameText); err != nil {
 		return err
 	}
-	if logger.IsDebug() {
-		logger.Debugf(context.TODO(), "[Proxy客户端->VNC服务端]:  serverInit: %s", srvInit)
-	}
+
+	slog.Debug("[Proxy客户端->VNC服务端]", "serverInit", srvInit.String())
 	session.SetDesktopName(srvInit.NameText)
 	// 如果协议是aten1，则执行特殊的逻辑
 	if session.ProtocolVersion() == "aten1" {

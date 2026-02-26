@@ -1,11 +1,10 @@
 package handler
 
 import (
-	"context"
 	"encoding/binary"
 	"fmt"
 	"github.com/lizazacn/vncproxy/rfb"
-	"github.com/osgochina/dmicro/logger"
+	"log/slog"
 )
 
 // ServerSecurityHandler vnc握手步骤第二步
@@ -15,9 +14,7 @@ import (
 type ServerSecurityHandler struct{}
 
 func (*ServerSecurityHandler) Handle(session rfb.ISession) error {
-	if logger.IsDebug() {
-		logger.Debugf(context.TODO(), "[VNC客户端->Proxy服务端]: 执行vnc握手第二步:[Security]")
-	}
+	slog.Debug("[VNC客户端->Proxy服务端]: 执行vnc握手第二步:[Security]")
 	cfg := session.Options()
 	var secType rfb.SecurityType
 	if session.ProtocolVersion() == rfb.ProtoVersion37 || session.ProtocolVersion() == rfb.ProtoVersion38 {
