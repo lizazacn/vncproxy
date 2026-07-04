@@ -50,6 +50,10 @@ func (*ClientSecurityHandler) Handle(session rfb.ISession) error {
 		return err
 	}
 
+	if secType == nil{
+		return errors.New("No Security Type matched")
+	}
+
 	// 进入安全认证套件认证流程
 	err := secType.Auth(session)
 	if err != nil {
