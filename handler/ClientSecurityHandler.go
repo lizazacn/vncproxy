@@ -42,7 +42,7 @@ func (*ClientSecurityHandler) Handle(session rfb.ISession) error {
 	}
 
 	// 发送proxy客户端选中的安全认证套件
-	if err := binary.Write(session, binary.BigEndian, cfg.SecurityHandlers[0].Type()); err != nil {
+	if err := binary.Write(session, binary.BigEndian, secType); err != nil {
 		return err
 	}
 
