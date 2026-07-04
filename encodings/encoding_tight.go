@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"github.com/vprix/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 var TightMinToCompress int = 12

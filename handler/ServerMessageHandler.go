@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/binary"
 	"fmt"
+	"github.com/lizazacn/vncproxy/rfb"
 	"github.com/osgochina/dmicro/logger"
-	"github.com/vprix/vncproxy/rfb"
 )
 
 // ServerMessageHandler vnc握手已结束，进入消息交互阶段

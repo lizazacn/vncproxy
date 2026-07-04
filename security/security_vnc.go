@@ -6,7 +6,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/gogf/gf/v2/util/grand"
-	"github.com/vprix/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // ChallengeLen 随机认证串的长度

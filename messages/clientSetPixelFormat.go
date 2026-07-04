@@ -3,7 +3,7 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/vprix/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // SetPixelFormat 设置像素格式

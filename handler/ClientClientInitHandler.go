@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 	"encoding/binary"
+	"github.com/lizazacn/vncproxy/rfb"
 	"github.com/osgochina/dmicro/logger"
-	"github.com/vprix/vncproxy/rfb"
 )
 
 // ClientClientInitHandler vnc握手步骤第三步

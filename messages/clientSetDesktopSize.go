@@ -3,8 +3,8 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/vprix/vncproxy/internal/dbuffer"
-	"github.com/vprix/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/internal/dbuffer"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // SetDesktopSize 客户端发起设置桌面大小
@@ -90,6 +90,7 @@ func (that *SetDesktopSize) Write(session rfb.ISession) error {
 }
 
 // No. of bytes		Type	Description
+//
 //	4				U32			id
 //	2				U16			x-position
 //	2				U16			y-position

@@ -1,4 +1,4 @@
-module github.com/vprix/vncproxy
+module github.com/lizazacn/vncproxy
 
 require (
 	github.com/gin-gonic/gin v1.11.0

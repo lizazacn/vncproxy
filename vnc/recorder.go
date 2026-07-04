@@ -5,10 +5,10 @@ import (
 	"encoding/binary"
 	"github.com/gogf/gf/v2/container/gtype"
 	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/lizazacn/vncproxy/messages"
+	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/session"
 	"github.com/osgochina/dmicro/logger"
-	"github.com/vprix/vncproxy/messages"
-	"github.com/vprix/vncproxy/rfb"
-	"github.com/vprix/vncproxy/session"
 )
 
 type Recorder struct {

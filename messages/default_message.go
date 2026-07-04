@@ -1,6 +1,6 @@
 package messages
 
-import "github.com/vprix/vncproxy/rfb"
+import "github.com/lizazacn/vncproxy/rfb"
 
 var (
 	// DefaultClientMessage 默认client支持的消息

@@ -5,11 +5,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/lizazacn/vncproxy/encodings"
+	"github.com/lizazacn/vncproxy/handler"
+	"github.com/lizazacn/vncproxy/messages"
+	"github.com/lizazacn/vncproxy/rfb"
 	"github.com/osgochina/dmicro/logger"
-	"github.com/vprix/vncproxy/encodings"
-	"github.com/vprix/vncproxy/handler"
-	"github.com/vprix/vncproxy/messages"
-	"github.com/vprix/vncproxy/rfb"
 	"io"
 )
 

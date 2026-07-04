@@ -3,8 +3,8 @@ package encodings
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/vprix/vncproxy/canvas"
-	"github.com/vprix/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/canvas"
+	"github.com/lizazacn/vncproxy/rfb"
 	"image"
 	"image/color"
 	"math"
