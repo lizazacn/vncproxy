@@ -2,7 +2,7 @@ package encodings
 
 import (
 	"encoding/binary"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 )
 
 // CopyRectEncoding 该编码方式对于客户端在某些已经有了相同的象素数据的时候是非常简单和有效的。

@@ -3,7 +3,7 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 )
 
 // EndOfContinuousUpdates Bell 结束连续更新

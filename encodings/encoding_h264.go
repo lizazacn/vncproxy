@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"errors"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 )
 
 type H264Encoding struct {

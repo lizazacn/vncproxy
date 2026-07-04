@@ -5,9 +5,9 @@ import (
 	"encoding/binary"
 	"github.com/gogf/gf/v2/container/gtype"
 	"github.com/gogf/gf/v2/os/gtime"
-	"github.com/lizazacn/vncproxy/messages"
-	"github.com/lizazacn/vncproxy/rfb"
-	"github.com/lizazacn/vncproxy/session"
+	"github.com/lizazacn/vncproxy/v2/messages"
+	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/v2/session"
 	"github.com/osgochina/dmicro/logger"
 )
 

@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 	"encoding/binary"
-	"github.com/lizazacn/vncproxy/messages"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/messages"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 	"github.com/osgochina/dmicro/logger"
 )
 

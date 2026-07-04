@@ -2,7 +2,7 @@ package encodings
 
 import (
 	"bytes"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 )
 
 type CursorWithAlphaPseudoEncoding struct {

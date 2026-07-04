@@ -3,8 +3,8 @@ package encodings
 import (
 	"bytes"
 	"errors"
-	"github.com/lizazacn/vncproxy/canvas"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/canvas"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 )
 
 // RawEncoding 采用原始地像素数据，而不进行任何的加工处理。

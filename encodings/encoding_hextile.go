@@ -5,8 +5,8 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/lizazacn/vncproxy/canvas"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/canvas"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 	"image"
 	"image/color"
 )

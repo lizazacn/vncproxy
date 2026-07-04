@@ -2,7 +2,7 @@ package messages
 
 import (
 	"fmt"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 )
 
 // ServerInit  握手的时候服务端初始化消息

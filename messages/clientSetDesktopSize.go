@@ -3,8 +3,8 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/lizazacn/vncproxy/internal/dbuffer"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/internal/dbuffer"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 )
 
 // SetDesktopSize 客户端发起设置桌面大小

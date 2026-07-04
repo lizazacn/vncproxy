@@ -2,7 +2,7 @@ package encodings
 
 import (
 	"encoding/binary"
-	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/v2/rfb"
 )
 
 // LedStatePseudo 切换客户端本地小键盘锁定的led灯
