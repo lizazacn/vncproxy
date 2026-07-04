@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"errors"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // CoRREEncoding CoRRE是RRE的变体，它把发送的最大矩形限制在255×255个像素以内，用一个字节就能表示子矩形的维度。

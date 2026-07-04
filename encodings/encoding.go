@@ -3,8 +3,8 @@ package encodings
 import (
 	"encoding/binary"
 	"errors"
-	"github.com/lizazacn/vncproxy/v2/internal/dbuffer"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/internal/dbuffer"
+	"github.com/lizazacn/vncproxy/rfb"
 	"io"
 )
 

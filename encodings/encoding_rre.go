@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"errors"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // RREEncoding RRE表示提升和运行长度，正如它名字暗示的那样，它实质上表示二维向量的运行长度编码。

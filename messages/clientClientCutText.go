@@ -3,7 +3,7 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // ClientCutText 客户端发送剪切板内容到服务端

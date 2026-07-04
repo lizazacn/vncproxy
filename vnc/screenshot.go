@@ -2,10 +2,10 @@ package vnc
 
 import (
 	"fmt"
-	"github.com/lizazacn/vncproxy/v2/messages"
-	"github.com/lizazacn/vncproxy/v2/rfb"
-	"github.com/lizazacn/vncproxy/v2/security"
-	"github.com/lizazacn/vncproxy/v2/session"
+	"github.com/lizazacn/vncproxy/messages"
+	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/security"
+	"github.com/lizazacn/vncproxy/session"
 	"github.com/osgochina/dmicro/logger"
 	"golang.org/x/net/context"
 	"io"

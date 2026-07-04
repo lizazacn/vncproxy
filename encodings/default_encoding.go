@@ -1,6 +1,6 @@
 package encodings
 
-import "github.com/lizazacn/vncproxy/v2/rfb"
+import "github.com/lizazacn/vncproxy/rfb"
 
 var (
 	DefaultEncodings = []rfb.IEncoding{

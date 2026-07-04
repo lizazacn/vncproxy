@@ -3,7 +3,7 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // ServerFence 支持 Fence扩展的服务器发送此扩展以请求数据流的同步。

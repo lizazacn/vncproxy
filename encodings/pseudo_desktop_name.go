@@ -2,7 +2,7 @@ package encodings
 
 import (
 	"encoding/binary"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // DesktopNamePseudoEncoding 服务端设置桌面名字的消息

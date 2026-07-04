@@ -1,7 +1,7 @@
 package encodings
 
 import (
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // DesktopSizePseudoEncoding 如果客户端请求桌面大小伪编码，那么就是说它能处理帧缓存宽/高的改变。

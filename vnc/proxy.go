@@ -3,10 +3,10 @@ package vnc
 import (
 	"github.com/gogf/gf/v2/container/gtype"
 	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/lizazacn/vncproxy/v2/handler"
-	"github.com/lizazacn/vncproxy/v2/messages"
-	"github.com/lizazacn/vncproxy/v2/rfb"
-	"github.com/lizazacn/vncproxy/v2/session"
+	"github.com/lizazacn/vncproxy/handler"
+	"github.com/lizazacn/vncproxy/messages"
+	"github.com/lizazacn/vncproxy/rfb"
+	"github.com/lizazacn/vncproxy/session"
 )
 
 type Proxy struct {

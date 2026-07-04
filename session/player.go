@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"encoding/binary"
 	"github.com/gogf/gf/v2/container/gmap"
-	"github.com/lizazacn/vncproxy/v2/encodings"
-	"github.com/lizazacn/vncproxy/v2/messages"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/encodings"
+	"github.com/lizazacn/vncproxy/messages"
+	"github.com/lizazacn/vncproxy/rfb"
 	"io"
 )
 

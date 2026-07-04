@@ -3,7 +3,7 @@ package messages
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // FramebufferUpdateRequest 请求帧缓存更新消息

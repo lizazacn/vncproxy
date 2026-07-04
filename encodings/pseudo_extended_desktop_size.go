@@ -3,7 +3,7 @@ package encodings
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/lizazacn/vncproxy/v2/rfb"
+	"github.com/lizazacn/vncproxy/rfb"
 )
 
 // ExtendedDesktopSizePseudo 扩展适应客户端桌面分辨率
